@@ -19,10 +19,12 @@ on boot
 
 on enable-low-power
 
-    # Ensure at most one A57 is online when thermal hotplug is disabled
+    # Disable a57 cores never to hear from them ever again
+    write /sys/devices/system/cpu/cpu4/online 0
     write /sys/devices/system/cpu/cpu5/online 0
     write /sys/devices/system/cpu/cpu6/online 0
     write /sys/devices/system/cpu/cpu7/online 0
+
     # Limit A57 max freq from msm_perf module in case CPU 4 is offline
     write /sys/module/msm_performance/parameters/cpu_max_freq "4:960000 5:960000 6:960000 7:960000"
 
@@ -48,7 +50,6 @@ on enable-low-power
     write /sys/devices/system/cpu/cpu0/cpufreq/scaling_min_freq 384000
 
     # Tune governors for big cores
-    write /sys/devices/system/cpu/cpu4/online 1
     write /sys/devices/system/cpu/cpu4/cpufreq/scaling_governor "interactive"
     write /sys/devices/system/cpu/cpu4/cpufreq/interactive/use_sched_load 1
     write /sys/devices/system/cpu/cpu4/cpufreq/interactive/use_migration_notif 1
@@ -61,10 +62,6 @@ on enable-low-power
     write /sys/devices/system/cpu/cpu4/cpufreq/interactive/min_sample_time 40000
     write /sys/devices/system/cpu/cpu4/cpufreq/interactive/max_freq_hysteresis 80000
     write /sys/devices/system/cpu/cpu4/cpufreq/scaling_min_freq 384000
-
-    # Insert core_ctl module and use conservative paremeters
-    insmod /system/lib/modules/msm_core_ctl.ko
-    write /sys/devices/system/cpu/cpu4/core_ctl/max_cpus 1
 
     # Re-enable thermal and BCL hotplug
     write /sys/module/msm_thermal/core_control/enabled 1
@@ -82,15 +79,6 @@ on enable-low-power
     # Input boost configuration
     write /sys/module/cpu_boost/parameters/input_boost_freq "0:1344000"
     write /sys/module/cpu_boost/parameters/input_boost_ms 40
-
-    # Configure core_ctl module parameters
-    write /sys/devices/system/cpu/cpu4/core_ctl/max_cpus 4
-    write /sys/devices/system/cpu/cpu4/core_ctl/min_cpus 0
-    write /sys/devices/system/cpu/cpu4/core_ctl/busy_up_thres 70
-    write /sys/devices/system/cpu/cpu4/core_ctl/busy_down_thres 20
-    write /sys/devices/system/cpu/cpu4/core_ctl/offline_delay_ms  100
-    write /sys/devices/system/cpu/cpu4/core_ctl/is_big_cluster 1
-    write /sys/devices/system/cpu/cpu4/core_ctl/task_thres 4
 
     # Setting big.LITTLE scheduler parameters
     write /proc/sys/kernel/sched_migration_fixup 1
