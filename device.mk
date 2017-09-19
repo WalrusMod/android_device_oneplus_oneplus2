@@ -108,7 +108,8 @@ PRODUCT_PACKAGES += \
     Snap \
     camera.device@3.2-impl \
     android.hardware.camera.provider@2.4-impl \
-    libshim_atomic 
+    libshim_atomic \
+    libop2_cam
 
 # Connectivity Engine support (CNE)
 PRODUCT_PACKAGES += \
