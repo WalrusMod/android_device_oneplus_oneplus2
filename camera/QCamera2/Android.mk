@@ -33,7 +33,7 @@ LOCAL_SRC_FILES += \
         HAL/QCameraParameters.cpp \
         HAL/QCameraThermalAdapter.cpp
 
-LOCAL_CFLAGS := -Wall -Wextra -Werror -Wno-format -Wno-gnu-designator -Wno-unused-parameter -Wno-unused-variable -Wno-unused-private-field -Wno-unused-label -Wno-tautological-pointer-compare
+LOCAL_CFLAGS := -Wall -Wextra -Wno-format -Wno-gnu-designator -Wno-unused-parameter -Wno-unused-variable -Wno-unused-private-field -Wno-unused-label -Wno-tautological-pointer-compare
 LOCAL_CFLAGS += -DHAS_MULTIMEDIA_HINTS
 
 ifeq ($(TARGET_USES_AOSP),true)
@@ -57,9 +57,7 @@ LOCAL_C_INCLUDES := \
         $(LOCAL_PATH)/../mm-image-codec/qomx_core \
         $(LOCAL_PATH)/util \
         hardware/qcom/media-caf/msm8994/libstagefrighthw \
-        device/qcom/common/power \
-        $(call include-path-for, android.hidl.token@1.0-utils) \
-        $(call include-path-for, android.hardware.graphics.bufferqueue@1.0)
+        device/qcom/common/power
 
 #HAL 1.0 Include paths
 LOCAL_C_INCLUDES += \
@@ -78,8 +76,6 @@ LOCAL_C_INCLUDES += \
 LOCAL_SHARED_LIBRARIES := liblog libcamera_client liblog libhardware libutils libcutils libdl
 LOCAL_SHARED_LIBRARIES += libmmcamera_interface libmmjpeg_interface libui libcamera_metadata
 LOCAL_SHARED_LIBRARIES += libqdMetaData libqdutils
-LOCAL_SHARED_LIBRARIES += android.hidl.token@1.0-utils
-LOCAL_SHARED_LIBRARIES += android.hardware.graphics.bufferqueue@1.0
 
 LOCAL_CLANG := true
 LOCAL_MODULE_RELATIVE_PATH := hw
