@@ -34,5 +34,5 @@ def AddBasebandAssertion(info, input_zip):
     if ((len(timestamp) and '*' not in timestamp) and \
         (len(firmware_version) and '*' not in firmware_version)):
       cmd = 'assert(oneplus2.verify_baseband("{}") == "1" || abort("ERROR: This package requires firmware from OOS {} or newer. Please upgrade firmware and retry!"););'
-      info.script.AppendExtra(cmd.format(timestamp, firmware_version))
+      #info.script.AppendExtra(cmd.format(timestamp, firmware_version))
   return
